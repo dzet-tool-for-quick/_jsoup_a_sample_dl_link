@@ -34,5 +34,6 @@ public class DownloadLink {
             System.out.print(href);
             System.out.println(")");
         }
+        System.out.println();
     }
 }
