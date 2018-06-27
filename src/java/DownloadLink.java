@@ -23,7 +23,7 @@ public class DownloadLink {
             String html = doc.html();
 //            System.out.println(html);
             aEles = doc.select("#js-repo-pjax-container > div.container.new-discussion-timeline.experiment-repo-nav > div.repository-content > div.file-wrap > table > tbody:nth-child(2) > tr:gt(0) > td:eq(1) > span > a");
-        }while (aEles.size() == 0);
+        }while (aEles.size() == 0); // 防止获取失败
 
         System.out.println(aEles.size());
         System.out.println();
@@ -34,15 +34,18 @@ public class DownloadLink {
             int length = title.length();
             boolean exitPartString = title.contains("part");
 
-            System.out.print("> [");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("> [");
             if (exitPartString) {
-                System.out.print(title.substring(length - 9, length - 4));
+                stringBuilder.append(title, length - 9, length - 4);
             }else {
-                System.out.print("part");
+                stringBuilder.append("part");
             }
-            System.out.print("](");
-            System.out.print(href);
-            System.out.println(")");
+            stringBuilder.append("](");
+            stringBuilder.append(href);
+            stringBuilder.append(")");
+
+            System.out.println(stringBuilder.toString());
         }
         System.out.println();
     }
