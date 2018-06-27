@@ -9,7 +9,7 @@ public class DownloadLink {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        String url = "https://github.com/dzet-pdf/_javascript_book_dl";
+        String url = "https://github.com/dzet-share/_java_book_dl";
         printDownloadLink(url);
 
     }
@@ -22,21 +22,21 @@ public class DownloadLink {
 
         do {
             doc = Jsoup.connect(reqUrl).get();
-//            String html = doc.html();
-//            System.out.println(html);
+            String html = doc.html();
+            System.out.println(html);
             aEles = doc.select("#js-repo-pjax-container " +
                     "> div.container.new-discussion-timeline.experiment-repo-nav " +
                     "> div.repository-content " +
                     "> div.file-wrap " +
                     "> table " +
-                    "> tbody:nth-child(2) " +
+                    "> tbody:eq(1) " +
                     "> tr:gt(0) " +
                     "> td:eq(1) " +
                     "> span " +
                     "> a");
 
             reqCnt = reqCnt + 1;
-            Thread.sleep(2000);
+            Thread.sleep(5000);
 
         }while (aEles.size() == 0); // 防止获取失败
 
