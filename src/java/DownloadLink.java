@@ -7,20 +7,22 @@ import java.io.IOException;
 
 public class DownloadLink {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         String url = "https://github.com/dzet-pdf/_javascript_book_dl";
         printDownloadLink(url);
 
     }
 
-    private static void printDownloadLink(String url) throws IOException {
-        Document doc = null;
-        Elements aEles = null;
+    private static void printDownloadLink(String url) throws IOException, InterruptedException {
+        int reqCnt = 0;
+        String reqUrl = url + "/tree/master/file";
+        Document doc;
+        Elements aEles;
 
         do {
-            doc = Jsoup.connect(url + "/tree/master/file").get();
-            String html = doc.html();
+            doc = Jsoup.connect(reqUrl).get();
+//            String html = doc.html();
 //            System.out.println(html);
             aEles = doc.select("#js-repo-pjax-container " +
                     "> div.container.new-discussion-timeline.experiment-repo-nav " +
@@ -32,9 +34,13 @@ public class DownloadLink {
                     "> td:eq(1) " +
                     "> span " +
                     "> a");
+
+            reqCnt = reqCnt + 1;
+            Thread.sleep(2000);
+
         }while (aEles.size() == 0); // 防止获取失败
 
-        System.out.println(aEles.size());
+        System.out.println("aEles.size()="+aEles.size()+" reqCnt="+reqCnt+" repeatCount=" + (reqCnt-1));
         System.out.println();
 
         for (Element aEle : aEles) {
