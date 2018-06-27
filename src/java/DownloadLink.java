@@ -22,7 +22,16 @@ public class DownloadLink {
             doc = Jsoup.connect(url + "/tree/master/file").get();
             String html = doc.html();
 //            System.out.println(html);
-            aEles = doc.select("#js-repo-pjax-container > div.container.new-discussion-timeline.experiment-repo-nav > div.repository-content > div.file-wrap > table > tbody:nth-child(2) > tr:gt(0) > td:eq(1) > span > a");
+            aEles = doc.select("#js-repo-pjax-container " +
+                    "> div.container.new-discussion-timeline.experiment-repo-nav " +
+                    "> div.repository-content " +
+                    "> div.file-wrap " +
+                    "> table " +
+                    "> tbody:nth-child(2) " +
+                    "> tr:gt(0) " +
+                    "> td:eq(1) " +
+                    "> span " +
+                    "> a");
         }while (aEles.size() == 0); // 防止获取失败
 
         System.out.println(aEles.size());
